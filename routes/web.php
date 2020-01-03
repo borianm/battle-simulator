@@ -11,6 +11,15 @@
 |
 */
 
+use App\Models\AttackStrategy;
+use App\Models\Game;
+use Illuminate\Http\Request;
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
+});
+Route::get('/games/{id}', function (Request $request, $id) {
+    if (Game::find($id) === null) abort(404);
+    $strategies = AttackStrategy::all();
+    return view('game', compact('id', 'strategies'));
 });
